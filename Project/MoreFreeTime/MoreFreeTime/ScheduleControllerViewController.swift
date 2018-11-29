@@ -29,6 +29,7 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
     
     var dateObserver : NSObjectProtocol?
     var newEventObserver : NSObjectProtocol?
+    var editedEventObserver : NSObjectProtocol?
     
     var currentDate : Date = Date()
     var currentShortDate : String?
@@ -93,6 +94,12 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
             //print(self.events)
             
         }
+        editedEventObserver = NotificationCenter.default.addObserver(forName: .saveEditedEvent, object: nil, queue: OperationQueue.main) {
+            (notification) in let editedEvent = notification.object as! Event
+            self.updateEvent(e: editedEvent)
+            self.getTodaysEvents()
+            
+        }
         print("added observer")
     }
     
@@ -102,7 +109,7 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
             let dbEvents = try self.database.prepare(eventsTable)
             for dbEvent in dbEvents {
                 if dbEvent[self.eventStartDate].isEqual(currentShortDate) {
-                    let event = Event(title: dbEvent[self.eventTitle], startDate: dbEvent[self.eventStartDate], startTime: dbEvent[self.eventStartTime], endDate: dbEvent[self.eventEndDate], endTime: dbEvent[self.eventEndTime], location: dbEvent[self.eventLocation], description: dbEvent[self.eventDescription]!)
+                    let event = Event(title: dbEvent[self.eventTitle], startDate: dbEvent[self.eventStartDate], startTime: dbEvent[self.eventStartTime], endDate: dbEvent[self.eventEndDate], endTime: dbEvent[self.eventEndTime], location: dbEvent[self.eventLocation], description: dbEvent[self.eventDescription]!, id: dbEvent[self.id])
                     todaysEvents.append(event)
                 }
             }
@@ -178,9 +185,9 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
         }
     }
     
-    func updateEvent() {
-        let event = self.eventsTable.filter(self.id == 1)
-        let updateEvent = event.update(self.eventLocation <- "Meet me here.")
+    func updateEvent(e : Event) {
+        let event = self.eventsTable.filter(self.id == e.id)
+        let updateEvent = event.update(self.eventTitle <- e.title, self.eventStartDate <- e.startDate, self.eventStartTime <- e.startTime, self.eventEndDate <- e.endDate, self.eventEndTime <- e.endTime, self.eventLocation <- e.location, self.eventDescription <- e.description)
         do {
             try self.database.run(updateEvent)
         } catch {

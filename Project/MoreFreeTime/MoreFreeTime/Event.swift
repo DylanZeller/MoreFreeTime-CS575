@@ -17,6 +17,7 @@ struct Event {
     var endTime : String
     var location : String
     var description : String
+    var id : Int
     
     func getStartHour() -> Int {
         let isAm = String(self.startTime.suffix(2)).isEqual("AM")

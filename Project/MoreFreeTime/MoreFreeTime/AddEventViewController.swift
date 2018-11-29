@@ -121,11 +121,17 @@ class AddEventViewController: UIViewController {
     
     @IBAction func clickSave(_ sender: Any) {
         if edit {
-            print(eventForEdit)
-            //add editing event here
+            eventForEdit.title = self.eventTitleLabel.text!
+            eventForEdit.startDate = self.eventStartDate.text!
+            eventForEdit.startTime = self.eventStartTime.text!
+            eventForEdit.endDate = self.eventEndDate.text!
+            eventForEdit.endTime = self.eventEndTime.text!
+            eventForEdit.location = self.eventLocationLabel.text ?? "No Location"
+            eventForEdit.description = self.eventDescriptionText.text
+            NotificationCenter.default.post(name: .saveEditedEvent, object: eventForEdit)
         } else {
             print("Adding New Event")
-            let event = Event(title: self.eventTitleLabel.text ?? "(No Title)", startDate: self.eventStartDate.text!, startTime: self.eventStartTime.text!, endDate: self.eventEndDate.text!, endTime: self.eventEndTime.text!, location: self.eventLocationLabel.text ?? "No Location", description: self.eventDescriptionText.text)
+            let event = Event(title: self.eventTitleLabel.text ?? "(No Title)", startDate: self.eventStartDate.text!, startTime: self.eventStartTime.text!, endDate: self.eventEndDate.text!, endTime: self.eventEndTime.text!, location: self.eventLocationLabel.text ?? "No Location", description: self.eventDescriptionText.text, id: 0)
             NotificationCenter.default.post(name: .saveNewEvent, object: event)
         }
         if let observerStart = observerStart {
