@@ -15,7 +15,17 @@ class EventSingleDayCell: UITableViewCell {
     @IBOutlet weak var eventLocation: UILabel!
     @IBOutlet weak var eventStartTime: UILabel!
     @IBOutlet weak var eventEndTime: UILabel!
+    @IBOutlet weak var editThisEvent: UIButton!
     
+    var housedEvent : Event!
+    
+    func setEvent(event : Event) {
+        self.housedEvent = event
+        self.eventName.text = event.title
+        self.eventLocation.text = event.location
+        self.eventStartTime.text = event.startTime
+        self.eventEndTime.text = event.endTime
+    }
     
     
     

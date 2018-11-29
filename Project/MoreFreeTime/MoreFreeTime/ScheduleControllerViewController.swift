@@ -24,32 +24,30 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
 
     
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var dateLabel: UILabel!
     
     var dateObserver : NSObjectProtocol?
     var newEventObserver : NSObjectProtocol?
     
+    var currentDate : Date = Date()
+    var currentShortDate : String?
+    var newEvent : Event?
+    var events : [Event] = []
+    
     var formattedDate: String {
         get {
             let formatter = DateFormatter()
             formatter.dateStyle = .long
-            return formatter.string(from: Date())
+            return formatter.string(from: self.currentDate)
         }
     }
     
     var formattedShortDate : String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
-        return formatter.string(from: Date())
+        return formatter.string(from: self.currentDate)
     }
-    
-    var currentDate : String?
-    var currentShortDate : String?
-    var newEvent : Event?
-    var events : [Event] = []
-    
-    @IBOutlet weak var eventsViewer: UIView!
-    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,25 +60,28 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
         } catch {
             print(error)
         }
+        
         addObservers()
-        deleteTable()
+        //deleteTable()
         createTable()
-        getTodaysEvents()
         
-        currentDate = formattedDate
         currentShortDate = formattedShortDate
-        dateLabel.text = currentDate
-        //Pull all events from Database that correspond to date
+        dateLabel.text = formattedDate
         
-
+        //Pull all events from Database that correspond to date
+        tableView.delegate = self
+        tableView.dataSource = self
+        getTodaysEvents()
     }
     
     func addObservers() {
         dateObserver = NotificationCenter.default.addObserver(forName: .saveStartDateTime, object: nil, queue: OperationQueue.main) {
             (notification) in let dateVc = notification.object as! DatePopupViewController
+            self.currentDate = dateVc.date
             self.dateLabel.text = dateVc.formattedDateLong
-            self.currentDate = dateVc.formattedDateLong
             self.currentShortDate = dateVc.formattedDate
+            self.getTodaysEvents()
+            //print(self.events)
             //When the date changes, also clear the events and populate with the current dates events
         }
         newEventObserver = NotificationCenter.default.addObserver(forName: .saveNewEvent, object: nil, queue: OperationQueue.main) {
@@ -88,10 +89,11 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
             self.insertEvent(e: newEvent)
             print("Events List:")
             self.getTodaysEvents()
-            print(self.events[0].getTimeInMinutes())
-            self.sortEvents()
+            print("OBSERVER: event added")
+            //print(self.events)
+            
         }
-        //print("added observer")
+        print("added observer")
     }
     
     func getTodaysEvents() {
@@ -108,6 +110,8 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
             print(error)
         }
         self.events = todaysEvents
+        self.sortEvents()
+        self.tableView.reloadData()
     }
     
     func sortEvents() {
@@ -203,6 +207,7 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
         if segue.identifier == "toCurrentDatePopupView" {
             let popup = segue.destination as! DatePopupViewController
             popup.isStart = true
+            popup.currentDate = self.currentDate
         }
     }
     
@@ -214,6 +219,33 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
         }
         if let newEventObserver = newEventObserver {
             NotificationCenter.default.removeObserver(newEventObserver)
+            print("Event Observer Deallocated")
         }
     }
+}
+
+extension ScheduleControllerViewController : UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return events.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let event = events[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EventSingleDayCell") as! EventSingleDayCell
+        cell.setEvent(event: event)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Clicked Cell")
+        let vc = UIStoryboard(name: "EventsController", bundle: nil).instantiateViewController(withIdentifier: "AddEventViewController") as! AddEventViewController
+        vc.edit = true
+        vc.eventForEdit = events[indexPath.row]
+        let navigationController = UINavigationController(rootViewController: vc)
+        self.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(navigationController, animated: true, completion: nil)
+    }
+    
 }
