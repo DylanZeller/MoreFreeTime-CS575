@@ -13,4 +13,5 @@ extension Notification.Name {
     static let saveEndDateTime = Notification.Name(rawValue: "saveEndDateTime")
     static let saveNewEvent = Notification.Name(rawValue: "saveNewEvent")
     static let saveEditedEvent = Notification.Name(rawValue: "saveEditedEvent")
+    static let deleteEvent = Notification.Name(rawValue: "deleteEvent")
 }

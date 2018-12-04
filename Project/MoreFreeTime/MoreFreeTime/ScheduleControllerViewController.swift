@@ -30,6 +30,7 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
     var dateObserver : NSObjectProtocol?
     var newEventObserver : NSObjectProtocol?
     var editedEventObserver : NSObjectProtocol?
+    var deleteEventObserver : NSObjectProtocol?
     
     var currentDate : Date = Date()
     var currentShortDate : String?
@@ -69,10 +70,14 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
         currentShortDate = formattedShortDate
         dateLabel.text = formattedDate
         
-        //Pull all events from Database that correspond to date
         tableView.delegate = self
         tableView.dataSource = self
         getTodaysEvents()
+        
+        let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ScheduleControllerViewController.longPress(_:)))
+        longPressGesture.minimumPressDuration = 1.0 // 1 second press
+        longPressGesture.delegate = self as? UIGestureRecognizerDelegate
+        self.tableView.addGestureRecognizer(longPressGesture)
     }
     
     func addObservers() {
@@ -82,23 +87,20 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
             self.dateLabel.text = dateVc.formattedDateLong
             self.currentShortDate = dateVc.formattedDate
             self.getTodaysEvents()
-            //print(self.events)
-            //When the date changes, also clear the events and populate with the current dates events
         }
         newEventObserver = NotificationCenter.default.addObserver(forName: .saveNewEvent, object: nil, queue: OperationQueue.main) {
             (notification) in let newEvent = notification.object as! Event
             self.insertEvent(e: newEvent)
-            print("Events List:")
             self.getTodaysEvents()
-            print("OBSERVER: event added")
-            //print(self.events)
-            
         }
         editedEventObserver = NotificationCenter.default.addObserver(forName: .saveEditedEvent, object: nil, queue: OperationQueue.main) {
             (notification) in let editedEvent = notification.object as! Event
             self.updateEvent(e: editedEvent)
             self.getTodaysEvents()
-            
+        }
+        deleteEventObserver = NotificationCenter.default.addObserver(forName: .deleteEvent, object: nil, queue: OperationQueue.main) {
+            (notification) in let deleteEventId = notification.object as! Int
+            self.deleteEvent(id : deleteEventId)
         }
         print("added observer")
     }
@@ -154,8 +156,8 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
         }
     }
     
-    func deleteEvent() {
-        let event = self.eventsTable.filter(self.id == 1)
+    func deleteEvent(id : Int) {
+        let event = self.eventsTable.filter(self.id == id)
         let deleteEvent = event.delete()
         do {
             try self.database.run(deleteEvent)
@@ -166,17 +168,6 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
     
     func insertEvent(e : Event) {
         let insertEvent = self.eventsTable.insert(self.eventTitle <- e.title, self.eventStartDate <- e.startDate, self.eventStartTime <- e.startTime, self.eventEndDate <- e.endDate, self.eventEndTime <- e.endTime, self.eventLocation <- e.location, self.eventDescription <- e.description)
-        do {
-            try self.database.run(insertEvent)
-            print("Inserted Event")
-        } catch {
-            print("Error")
-        }
-    }
-    
-    func insertGenericEvent() {
-        let insertEvent = self.eventsTable.insert(self.eventTitle <- "Name", self.eventStartDate <- "EventStartDate", self.eventStartTime <- "EventStartTime",self.eventEndDate <- "EventEndDate", self.eventEndTime <- "EventEndTime", self.eventLocation <- "EventLocation", self.eventDescription <- "EventDescription")
-        
         do {
             try self.database.run(insertEvent)
             print("Inserted Event")
@@ -206,10 +197,6 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
         }
     }
     
-    func populateEvents() {
-        //This is where the events in the page will be populated from
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toCurrentDatePopupView" {
             let popup = segue.destination as! DatePopupViewController
@@ -229,6 +216,23 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
             print("Event Observer Deallocated")
         }
     }
+    
+    @objc func longPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+            
+            let touchPoint = longPressGestureRecognizer.location(in: self.tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                let vc = UIStoryboard(name: "EventsController", bundle: nil).instantiateViewController(withIdentifier: "AddEventViewController") as! AddEventViewController
+                vc.edit = true
+                vc.eventForEdit = events[indexPath.row]
+                let navigationController = UINavigationController(rootViewController: vc)
+                self.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                self.present(navigationController, animated: true, completion: nil)
+            }
+        }
+    }
 }
 
 extension ScheduleControllerViewController : UITableViewDataSource, UITableViewDelegate {
@@ -245,14 +249,13 @@ extension ScheduleControllerViewController : UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Clicked Cell")
-        let vc = UIStoryboard(name: "EventsController", bundle: nil).instantiateViewController(withIdentifier: "AddEventViewController") as! AddEventViewController
-        vc.edit = true
-        vc.eventForEdit = events[indexPath.row]
+        let vc = UIStoryboard(name: "EventsController", bundle: nil).instantiateViewController(withIdentifier: "ViewEventViewController") as! ViewEventViewController
+        vc.viewEvent = events[indexPath.row]
         let navigationController = UINavigationController(rootViewController: vc)
         self.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         navigationController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.present(navigationController, animated: true, completion: nil)
+        
     }
     
 }
