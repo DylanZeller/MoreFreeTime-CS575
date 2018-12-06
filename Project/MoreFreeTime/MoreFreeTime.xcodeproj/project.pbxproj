@@ -8,14 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		4D2793F621AC706D008917B9 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2793F521AC706D008917B9 /* Event.swift */; };
-		4D2793FF21AC7126008917B9 /* EventsTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2793FE21AC7126008917B9 /* EventsTable.storyboard */; };
-		4D27940121AC7197008917B9 /* EventsTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D27940021AC7197008917B9 /* EventsTableTableViewController.swift */; };
 		4D27940321AC71DA008917B9 /* ListViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D27940221AC71DA008917B9 /* ListViewDataSource.swift */; };
 		4D27942621ACE6C5008917B9 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D27941721ACE690008917B9 /* SQLite.framework */; };
 		4D27942721ACE6C5008917B9 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D27941721ACE690008917B9 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4D27942C21ACEFCD008917B9 /* SQLite_Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D27942B21ACEFCD008917B9 /* SQLite_Example.swift */; };
 		4D27942F21ADEC2E008917B9 /* EventSingleDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D27942E21ADEC2E008917B9 /* EventSingleDayCell.swift */; };
 		4D27B29321B7201C001BE911 /* ViewEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D27B29221B7201C001BE911 /* ViewEventViewController.swift */; };
+		4D27B29C21B98A34001BE911 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D27B29B21B98A34001BE911 /* DatabaseManager.swift */; };
 		4D618EBF21AB6E0F006814C0 /* ScheduleControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D618EBE21AB6E0F006814C0 /* ScheduleControllerViewController.swift */; };
 		4D618EC121AB7707006814C0 /* DatePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D618EC021AB7707006814C0 /* DatePopupViewController.swift */; };
 		4D618EC321AB77DE006814C0 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D618EC221AB77DE006814C0 /* AddEventViewController.swift */; };
@@ -104,13 +103,12 @@
 
 /* Begin PBXFileReference section */
 		4D2793F521AC706D008917B9 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		4D2793FE21AC7126008917B9 /* EventsTable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EventsTable.storyboard; sourceTree = "<group>"; };
-		4D27940021AC7197008917B9 /* EventsTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableTableViewController.swift; sourceTree = "<group>"; };
 		4D27940221AC71DA008917B9 /* ListViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewDataSource.swift; sourceTree = "<group>"; };
 		4D27940521ACE68F008917B9 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../../../../../../Downloads/SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		4D27942B21ACEFCD008917B9 /* SQLite_Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLite_Example.swift; sourceTree = "<group>"; };
 		4D27942E21ADEC2E008917B9 /* EventSingleDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSingleDayCell.swift; sourceTree = "<group>"; };
 		4D27B29221B7201C001BE911 /* ViewEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEventViewController.swift; sourceTree = "<group>"; };
+		4D27B29B21B98A34001BE911 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		4D618EBE21AB6E0F006814C0 /* ScheduleControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleControllerViewController.swift; sourceTree = "<group>"; };
 		4D618EC021AB7707006814C0 /* DatePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopupViewController.swift; sourceTree = "<group>"; };
 		4D618EC221AB77DE006814C0 /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +187,7 @@
 				4DECCE1821A8C71E006CA671 /* Info.plist */,
 				4D618EC721AB828C006814C0 /* EventsController.storyboard */,
 				4D618EBE21AB6E0F006814C0 /* ScheduleControllerViewController.swift */,
+				4D27B29B21B98A34001BE911 /* DatabaseManager.swift */,
 				4D618EC221AB77DE006814C0 /* AddEventViewController.swift */,
 				4D27B29221B7201C001BE911 /* ViewEventViewController.swift */,
 				4D27942E21ADEC2E008917B9 /* EventSingleDayCell.swift */,
@@ -197,8 +196,6 @@
 				4D2793F521AC706D008917B9 /* Event.swift */,
 				4DF5C27421ABA62D00DF3B9B /* NotificationNameExtention.swift */,
 				4D27940221AC71DA008917B9 /* ListViewDataSource.swift */,
-				4D2793FE21AC7126008917B9 /* EventsTable.storyboard */,
-				4D27940021AC7197008917B9 /* EventsTableTableViewController.swift */,
 			);
 			path = MoreFreeTime;
 			sourceTree = "<group>";
@@ -321,7 +318,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D2793FF21AC7126008917B9 /* EventsTable.storyboard in Resources */,
 				4D618EC921AB828C006814C0 /* EventsController.storyboard in Resources */,
 				4DECCE1721A8C71E006CA671 /* LaunchScreen.storyboard in Resources */,
 				4D618EC621AB820C006814C0 /* DatePopup.storyboard in Resources */,
@@ -343,9 +339,9 @@
 				4DF5C27521ABA62D00DF3B9B /* NotificationNameExtention.swift in Sources */,
 				4D27B29321B7201C001BE911 /* ViewEventViewController.swift in Sources */,
 				4D27940321AC71DA008917B9 /* ListViewDataSource.swift in Sources */,
-				4D27940121AC7197008917B9 /* EventsTableTableViewController.swift in Sources */,
 				4D618EC121AB7707006814C0 /* DatePopupViewController.swift in Sources */,
 				4D618EBF21AB6E0F006814C0 /* ScheduleControllerViewController.swift in Sources */,
+				4D27B29C21B98A34001BE911 /* DatabaseManager.swift in Sources */,
 				4D27942F21ADEC2E008917B9 /* EventSingleDayCell.swift in Sources */,
 				4D2793F621AC706D008917B9 /* Event.swift in Sources */,
 				4DECCE0D21A8C71B006CA671 /* AppDelegate.swift in Sources */,
