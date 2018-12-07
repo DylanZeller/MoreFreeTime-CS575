@@ -30,20 +30,8 @@
                                     <constraint firstAttribute="width" secondItem="KJk-Rm-yfA" secondAttribute="height" multiplier="268:489" id="CSt-Zv-Yxk"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More Free Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFR-s4-Fgh">
-                                <rect key="frame" x="104" y="238" width="167" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Learn to budget your time more effectively!" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6cf-NZ-4Z6">
-                                <rect key="frame" x="96" y="276" width="182" height="113"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eSU-9y-L3a" userLabel="ContinueButton">
-                                <rect key="frame" x="115" y="419" width="144" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eSU-9y-L3a" userLabel="ContinueButton">
+                                <rect key="frame" x="115" y="419" width="30" height="30"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle"/>
                                 </state>
@@ -51,32 +39,28 @@
                                     <segue destination="GBq-lu-OIv" kind="show" id="Mbd-gt-juR"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Screen Shot 2018-12-06 at 4.41.19 PM" translatesAutoresizingMaskIntoConstraints="NO" id="MPy-IA-gqK">
+                                <rect key="frame" x="90" y="235" width="195" height="176"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6cf-NZ-4Z6" secondAttribute="bottom" constant="278" id="6PW-wK-SMG"/>
                             <constraint firstItem="G7e-bO-7dF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DMj-cg-P8h"/>
                             <constraint firstItem="oJa-zg-vsj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EHe-zD-6ra"/>
-                            <constraint firstItem="eSU-9y-L3a" firstAttribute="centerX" secondItem="6cf-NZ-4Z6" secondAttribute="centerX" id="GCG-R8-g7k"/>
                             <constraint firstItem="oJa-zg-vsj" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="HZz-Ta-wmu"/>
-                            <constraint firstItem="6cf-NZ-4Z6" firstAttribute="top" secondItem="vFR-s4-Fgh" secondAttribute="bottom" constant="8" id="Hhu-li-whA"/>
-                            <constraint firstItem="KJk-Rm-yfA" firstAttribute="centerX" secondItem="vFR-s4-Fgh" secondAttribute="centerX" id="Q1g-j9-UHm"/>
                             <constraint firstItem="oJa-zg-vsj" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Q82-l6-26X"/>
                             <constraint firstItem="G7e-bO-7dF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TJe-TF-geJ"/>
                             <constraint firstItem="eSU-9y-L3a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="115" id="Tj5-8R-7XG"/>
                             <constraint firstItem="G7e-bO-7dF" firstAttribute="top" secondItem="oJa-zg-vsj" secondAttribute="top" id="WIH-vJ-dzi"/>
                             <constraint firstAttribute="bottom" secondItem="G7e-bO-7dF" secondAttribute="bottom" id="c6g-zq-htS"/>
                             <constraint firstItem="oJa-zg-vsj" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="g9N-2A-3Ne"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6cf-NZ-4Z6" secondAttribute="trailing" constant="97" id="g9Y-gR-lHa"/>
-                            <constraint firstItem="eSU-9y-L3a" firstAttribute="top" secondItem="6cf-NZ-4Z6" secondAttribute="bottom" constant="30" id="guJ-Ms-v7K"/>
                             <constraint firstItem="oJa-zg-vsj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="i1E-y0-LzD"/>
                             <constraint firstItem="G7e-bO-7dF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="i4W-tU-hxN"/>
                             <constraint firstItem="oJa-zg-vsj" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="jha-iN-4U5"/>
                             <constraint firstItem="oJa-zg-vsj" firstAttribute="width" secondItem="G7e-bO-7dF" secondAttribute="width" id="kJs-gI-alj"/>
-                            <constraint firstItem="6cf-NZ-4Z6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="96" id="owO-u9-Qq5"/>
                             <constraint firstAttribute="bottom" secondItem="KJk-Rm-yfA" secondAttribute="bottom" constant="20" symbolic="YES" id="qxl-jW-vOq"/>
                             <constraint firstItem="KJk-Rm-yfA" firstAttribute="centerX" secondItem="oJa-zg-vsj" secondAttribute="centerX" id="sTE-p3-ACT"/>
-                            <constraint firstItem="vFR-s4-Fgh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="218" id="sdg-ZN-sOv"/>
                             <constraint firstItem="G7e-bO-7dF" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="xdk-GY-gJh"/>
                             <constraint firstItem="KJk-Rm-yfA" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="138" id="yeu-N3-f8Y"/>
                         </constraints>
@@ -99,6 +83,7 @@
     <resources>
         <image name="Background" width="375" height="667"/>
         <image name="Continue" width="375" height="667"/>
+        <image name="Screen Shot 2018-12-06 at 4.41.19 PM" width="254" height="263"/>
         <image name="Sub-Background" width="375" height="667"/>
     </resources>
 </document>

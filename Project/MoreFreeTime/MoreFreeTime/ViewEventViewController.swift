@@ -38,8 +38,20 @@ class ViewEventViewController: UIViewController {
     }
     
     @IBAction func deleteEventButton_Clicked(_ sender: Any) {
-        NotificationCenter.default.post(name: .deleteEvent, object: self.viewEvent.id)
-        dismiss(animated: true)
+        let dialogueMessage = UIAlertController(title: "Confirm", message: "Are you sure you would like to delete this event?", preferredStyle: .alert)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: { (action) -> Void in
+        })
+        
+        let ok = UIAlertAction(title: "Delete", style: .default, handler: { (action) -> Void in
+            NotificationCenter.default.post(name: .deleteEvent, object: self.viewEvent.id)
+            self.dismiss(animated: true)
+        })
+        ok.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        dialogueMessage.addAction(cancel)
+        dialogueMessage.addAction(ok)
+        self.present(dialogueMessage, animated: true, completion: nil)
     }
     
     @IBAction func clickReturnButton(_ sender: Any) {
