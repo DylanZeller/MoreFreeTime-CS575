@@ -112,6 +112,7 @@ class ScheduleControllerViewController: UIViewController/*, UITableViewDelegate,
             let popup = segue.destination as! DatePopupViewController
             popup.isStart = true
             popup.currentDate = self.currentDate
+            popup.dateOnly = true
         }
     }
     

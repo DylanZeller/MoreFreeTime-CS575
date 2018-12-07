@@ -16,6 +16,7 @@ class DatePopupViewController: UIViewController {
     
     var isStart: Bool! = false
     var currentDate : Date = Date()
+    var dateOnly: Bool! = false
     
     var date: Date {
         return datePicker.date
@@ -57,7 +58,9 @@ class DatePopupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.datePicker.date = currentDate
-        // Do any additional setup after loading the view.
+        if dateOnly {
+            self.datePicker.datePickerMode = UIDatePicker.Mode.date
+        }
     }
     
     func setDate(currentDate : Date) {
